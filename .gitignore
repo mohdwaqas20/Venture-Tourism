@@ -1,0 +1,19 @@
+# dependencies
+/node_modules
+
+# build output
+/dist
+
+# environment variables
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# gh-pages deployment
+.gh-pages-build
