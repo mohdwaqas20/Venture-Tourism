@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin, Clock, X, MessageCircle } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6'
+import { MdClose } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import logo from '../assets/logo.png'
@@ -61,9 +63,9 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Facebook, label: 'Facebook', href: '#' },
-    { icon: Instagram, label: 'Instagram', href: '#' },
-    { icon: Linkedin, label: 'LinkedIn', href: '#' },
+    { icon: FaFacebook, label: 'Facebook', href: '#' },
+    { icon: FaInstagram, label: 'Instagram', href: '#' },
+    { icon: FaLinkedin, label: 'LinkedIn', href: '#' },
     { icon: MessageCircle, label: 'WhatsApp', href: 'https://wa.me/971544343501' }
   ]
 
@@ -167,47 +169,21 @@ export default function Footer() {
             <div className="lg:col-span-7 md:col-span-2">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
 
-                {/* Quick Links */}
+                {/* Services Column */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="md:col-span-1"
                 >
-                  <h4 className="font-serif font-bold text-lg mb-6 text-gold">Quick Links</h4>
-                  <ul className="space-y-3">
-                    {quickLinks.map((link, idx) => (
-                      <li key={idx}>
-                        <Link
-                          to={link.path}
-                          className="text-gray-400 hover:text-gold transition-colors duration-300 font-sans text-sm group flex items-center gap-2"
-                        >
-                          <span className="w-1 h-1 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                          {link.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* Our Services */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="md:col-span-1"
-                >
-                  <h4 className="font-serif font-bold text-lg mb-6 text-gold">Our Services</h4>
+                  <h4 className="text-lg font-serif font-bold text-white mb-6">Our Services</h4>
                   <ul className="space-y-3">
                     {services.map((service, idx) => (
                       <li key={idx}>
                         <button
                           onClick={() => handleServiceClick(service.id)}
-                          className="text-gray-400 hover:text-gold transition-colors duration-300 font-sans text-sm group flex items-center gap-2 cursor-pointer bg-none border-none p-0"
+                          className="text-gray-400 hover:text-gold font-sans text-sm transition-colors duration-300 text-left hover:translate-x-1 transform transition-transform"
                         >
-                          <span className="w-1 h-1 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
                           {service.name}
                         </button>
                       </li>
@@ -215,27 +191,42 @@ export default function Footer() {
                   </ul>
                 </motion.div>
 
-                {/* Get In Touch */}
+                {/* Quick Links Column */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <h4 className="text-lg font-serif font-bold text-white mb-6">Quick Links</h4>
+                  <ul className="space-y-3">
+                    {quickLinks.map((link, idx) => (
+                      <li key={idx}>
+                        <Link
+                          to={link.path}
+                          className="text-gray-400 hover:text-gold font-sans text-sm transition-colors duration-300 hover:translate-x-1 transform transition-transform inline-block"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                {/* Contact Info Column */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="md:col-span-1"
                 >
-                  <h4 className="font-serif font-bold text-lg mb-6 text-gold">Get In Touch</h4>
+                  <h4 className="text-lg font-serif font-bold text-white mb-6">Contact Info</h4>
                   <div className="space-y-4">
-                    {/* Phone */}
-                    <a href="tel:+97143329686" className="flex items-start space-x-3 group cursor-pointer">
-                      <Phone size={18} className="text-gold flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-gray-500 text-xs mb-1">Phone</p>
-                        <p className="text-gray-300 font-sans text-sm group-hover:text-gold transition-colors">+971 4 332 9686</p>
-                      </div>
-                    </a>
-
                     {/* Email */}
-                    <button onClick={() => setShowEmailDialog(true)} className="flex items-start space-x-3 group cursor-pointer bg-none border-none p-0 text-left">
+                    <button
+                      onClick={() => setShowEmailDialog(true)}
+                      className="flex items-start space-x-3 group cursor-pointer hover:text-gold transition-colors"
+                    >
                       <Mail size={18} className="text-gold flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="text-gray-500 text-xs mb-1">Email</p>
@@ -243,12 +234,27 @@ export default function Footer() {
                       </div>
                     </button>
 
-                    {/* Location */}
-                    <a href="https://maps.app.goo.gl/MWh7X3iSU9PLTpxH7?g_st=awb" target="_blank" rel="noopener noreferrer" className="flex items-start space-x-3 group cursor-pointer">
+                    {/* Phone */}
+                    <a
+                      href="tel:+97144343501"
+                      className="flex items-start space-x-3 group cursor-pointer"
+                    >
+                      <Phone size={18} className="text-gold flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-gray-500 text-xs mb-1">Phone</p>
+                        <p className="text-gray-300 font-sans text-sm group-hover:text-gold transition-colors">+971 4 434 3501</p>
+                      </div>
+                    </a>
+
+                    {/* Address */}
+                    <a
+                      href="#"
+                      className="flex items-start space-x-3 group cursor-pointer"
+                    >
                       <MapPin size={18} className="text-gold flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-gray-500 text-xs mb-1">Location</p>
-                        <p className="text-gray-300 font-sans text-sm group-hover:text-gold transition-colors">1101 Silver Tower, Business Bay, Dubai</p>
+                        <p className="text-gray-500 text-xs mb-1">Address</p>
+                        <p className="text-gray-300 font-sans text-sm group-hover:text-gold transition-colors">Dubai, UAE</p>
                       </div>
                     </a>
 
@@ -317,7 +323,7 @@ export default function Footer() {
                 onClick={() => setShowEmailDialog(false)}
                 className="text-white hover:text-gold transition-colors"
               >
-                <X size={24} />
+                <MdClose size={24} />
               </button>
             </div>
 

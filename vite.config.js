@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/Venture-Tourism/', 
+  base: '/Venture-Tourism/',
   server: {
     port: 5173
   }
