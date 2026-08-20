@@ -292,9 +292,9 @@ export default function Footer() {
               © {currentYear} All Copyright 2026 by Venture Ease Tourism LLC - UAE
             </p>
             <div className="flex space-x-6 mt-6 md:mt-0">
-              <a href="/privacy-policy" className="text-gray-400 hover:text-gold text-sm font-sans transition-colors duration-300">Privacy Policy</a>
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-gold text-sm font-sans transition-colors duration-300">Privacy Policy</Link>
               <span className="text-gray-600">|</span>
-              <a href="/terms-conditions" className="text-gray-400 hover:text-gold text-sm font-sans transition-colors duration-300">Terms & Conditions</a>
+              <Link to="/terms-conditions" className="text-gray-400 hover:text-gold text-sm font-sans transition-colors duration-300">Terms & Conditions</Link>
             </div>
           </motion.div>
         </div>
