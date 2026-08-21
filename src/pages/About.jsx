@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Heart, Award, Globe, Users, Shield, CheckCircle } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 import CTASection from '../components/CTASection'
+import aboutVideo from '../assets/about.mp4'
 
 export default function About() {
   const values = [
@@ -116,7 +117,7 @@ export default function About() {
                   playsInline
                   className="w-full h-auto object-cover"
                 >
-                  <source src="/about.mp4" type="video/mp4" />
+                  <source src={aboutVideo} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>
