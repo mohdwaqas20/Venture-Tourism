@@ -4,12 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   @apply font-sans text-dark-text bg-white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .heading-1 {
@@ -109,6 +121,19 @@ body {
 
 .premium-card {
   @apply bg-white rounded-xl shadow-subtle hover:shadow-premium transition-all duration-300 overflow-hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+section {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure containers don't exceed viewport */
+[class*="max-w-"] {
+  max-width: 100% !important;
 }
 
 .service-card-hover {

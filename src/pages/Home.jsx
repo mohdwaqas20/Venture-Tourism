@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Plane, Hotel, BadgeCheck, MapPin, Globe, DollarSign, CheckCircle, ArrowRight } from 'lucide-react'
+import { Plane, Hotel, BadgeCheck, MapPin, Globe, DollarSign, CheckCircle, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Hero from '../components/Hero'
 import SectionHeading from '../components/SectionHeading'
 import ServiceCard from '../components/ServiceCard'
@@ -29,6 +29,8 @@ export default function Home() {
     departure: '',
     travelers: '1 Traveler'
   })
+  const [mobileServiceIndex, setMobileServiceIndex] = useState(0)
+  const [mobileDestinationIndex, setMobileDestinationIndex] = useState(0)
   const services = [
     {
       id: 'airline-tickets',
@@ -189,8 +191,28 @@ Please provide me with the best options for my trip. Thank you!`
     }))
   }
 
+  const handleMobileServicePrev = () => {
+    setMobileServiceIndex(prev => (prev - 1 + services.length) % services.length)
+  }
+
+  const handleMobileServiceNext = () => {
+    setMobileServiceIndex(prev => (prev + 1) % services.length)
+  }
+
+  const handleMobileDestinationPrev = () => {
+    setMobileDestinationIndex(prev => (prev - 1 + destinations.length) % destinations.length)
+  }
+
+  const handleMobileDestinationNext = () => {
+    setMobileDestinationIndex(prev => (prev + 1) % destinations.length)
+  }
+
   const handleServiceClick = (serviceId) => {
     navigate(`/services?service=${serviceId}`)
+  }
+
+  const handleDestinationClick = (destName) => {
+    navigate(`/destinations?location=${destName.toLowerCase()}`)
   }
 
   return (
@@ -206,35 +228,35 @@ Please provide me with the best options for my trip. Thank you!`
 
 
       {/* Travel Planning Card */}
-      <section className="relative -mt-24 z-20 mb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative -mt-24 z-20 mb-24 overflow-x-hidden">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="premium-card p-8 md:p-12 bg-white shadow-premium"
+            className="premium-card p-4 sm:p-8 md:p-12 bg-white shadow-premium"
           >
             <form onSubmit={handlePlanMyTrip}>
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3 sm:gap-6 items-end">
                 <div>
-                  <label className="block text-navy font-sans font-semibold mb-2">Destination</label>
+                  <label className="block text-navy font-sans font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Destination</label>
                   <input 
                     type="text" 
                     name="destination"
                     value={travelForm.destination}
                     onChange={handleTravelFormChange}
                     placeholder="Where to?" 
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold"
+                    className="w-full px-2 sm:px-4 py-2 sm:py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold text-xs sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-navy font-sans font-semibold mb-2">Travel Type</label>
+                  <label className="block text-navy font-sans font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Travel Type</label>
                   <select 
                     name="travelType"
                     value={travelForm.travelType}
                     onChange={handleTravelFormChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold"
+                    className="w-full px-2 sm:px-4 py-2 sm:py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold text-xs sm:text-base"
                   >
                     <option>Holiday</option>
                     <option>Business</option>
@@ -242,22 +264,22 @@ Please provide me with the best options for my trip. Thank you!`
                   </select>
                 </div>
                 <div>
-                  <label className="block text-navy font-sans font-semibold mb-2">Departure</label>
+                  <label className="block text-navy font-sans font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Departure</label>
                   <input 
                     type="date" 
                     name="departure"
                     value={travelForm.departure}
                     onChange={handleTravelFormChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold"
+                    className="w-full px-2 sm:px-4 py-2 sm:py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold text-xs sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-navy font-sans font-semibold mb-2">Travelers</label>
+                  <label className="block text-navy font-sans font-semibold mb-1 sm:mb-2 text-xs sm:text-sm">Travelers</label>
                   <select 
                     name="travelers"
                     value={travelForm.travelers}
                     onChange={handleTravelFormChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold"
+                    className="w-full px-2 sm:px-4 py-2 sm:py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold text-xs sm:text-base"
                   >
                     <option>1 Traveler</option>
                     <option>2 Travelers</option>
@@ -266,7 +288,7 @@ Please provide me with the best options for my trip. Thank you!`
                 </div>
                 <motion.button 
                   type="submit"
-                  className="premium-button-gold px-4 py-3 flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="premium-button-gold px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-center gap-2 whitespace-nowrap text-xs sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -275,7 +297,7 @@ Please provide me with the best options for my trip. Thank you!`
                     animate={{ x: [0, 3, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    <ArrowRight size={18} />
+                    <ArrowRight size={14} className="sm:w-5 sm:h-5" />
                   </motion.div>
                 </motion.button>
               </div>
@@ -293,7 +315,8 @@ Please provide me with the best options for my trip. Thank you!`
             subtitle="Everything you need for a seamless journey, all in one place."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Desktop Grid - Hidden on Mobile */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -308,6 +331,91 @@ Please provide me with the best options for my trip. Thank you!`
               </motion.div>
             ))}
           </div>
+
+          {/* Mobile Slider - Only on Mobile */}
+          <div className="md:hidden">
+            {/* Slider Container */}
+            <motion.div
+              key={mobileServiceIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.3 }}
+              drag="x"
+              dragElastic={0.2}
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) > 50 || Math.abs(velocity.x) > 500
+                
+                if (swipe) {
+                  if (offset.x > 0) {
+                    // Swiped right - go to previous
+                    handleMobileServicePrev()
+                  } else {
+                    // Swiped left - go to next
+                    handleMobileServiceNext()
+                  }
+                }
+              }}
+              onClick={() => handleServiceClick(services[mobileServiceIndex].id)}
+              className="cursor-grab active:cursor-grabbing"
+            >
+              <ServiceCard {...services[mobileServiceIndex]} />
+            </motion.div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-between gap-4 mt-8">
+              {/* Prev Button */}
+              <motion.button
+                onClick={handleMobileServicePrev}
+                className="p-3 rounded-full bg-white shadow-md hover:shadow-lg hover:bg-gold hover:text-white transition-all duration-300 flex-shrink-0"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Previous service"
+              >
+                <ChevronLeft size={24} />
+              </motion.button>
+
+              {/* Dot Indicators */}
+              <div className="flex items-center gap-2 justify-center flex-1">
+                {services.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => setMobileServiceIndex(index)}
+                    className={`rounded-full transition-all duration-300 ${
+                      index === mobileServiceIndex
+                        ? 'w-3 h-3 bg-gold shadow-[0_0_12px_rgba(201,162,39,0.6)]'
+                        : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label={`Go to service ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
+              <motion.button
+                onClick={handleMobileServiceNext}
+                className="p-3 rounded-full bg-white shadow-md hover:shadow-lg hover:bg-gold hover:text-white transition-all duration-300 flex-shrink-0"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Next service"
+              >
+                <ChevronRight size={24} />
+              </motion.button>
+            </div>
+
+            {/* Service Counter & Swipe Hint */}
+            <div className="text-center mt-6">
+              <p className="text-gray-600 font-sans text-sm">
+                <span className="font-bold text-gold">{mobileServiceIndex + 1}</span> of <span className="font-bold">{services.length}</span>
+              </p>
+              <p className="text-gray-400 font-sans text-xs mt-2">
+                💡 Swipe or tap arrows to explore
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -320,7 +428,8 @@ Please provide me with the best options for my trip. Thank you!`
             subtitle="Explore some of our most popular travel destinations"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Desktop Grid - Hidden on Mobile */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {destinations.map((dest, index) => (
               <motion.div
                 key={index}
@@ -328,11 +437,96 @@ Please provide me with the best options for my trip. Thank you!`
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                onClick={() => navigate(`/destinations?location=${dest.name.toLowerCase()}`)}
+                onClick={() => handleDestinationClick(dest.name)}
               >
                 <DestinationCard {...dest} />
               </motion.div>
             ))}
+          </div>
+
+          {/* Mobile Slider - Only on Mobile */}
+          <div className="md:hidden">
+            {/* Slider Container */}
+            <motion.div
+              key={mobileDestinationIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.3 }}
+              drag="x"
+              dragElastic={0.2}
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) > 50 || Math.abs(velocity.x) > 500
+                
+                if (swipe) {
+                  if (offset.x > 0) {
+                    // Swiped right - go to previous
+                    handleMobileDestinationPrev()
+                  } else {
+                    // Swiped left - go to next
+                    handleMobileDestinationNext()
+                  }
+                }
+              }}
+              onClick={() => handleDestinationClick(destinations[mobileDestinationIndex].name)}
+              className="cursor-grab active:cursor-grabbing"
+            >
+              <DestinationCard {...destinations[mobileDestinationIndex]} />
+            </motion.div>
+
+            {/* Navigation Controls */}
+            <div className="flex items-center justify-between gap-4 mt-8">
+              {/* Prev Button */}
+              <motion.button
+                onClick={handleMobileDestinationPrev}
+                className="p-3 rounded-full bg-white shadow-md hover:shadow-lg hover:bg-gold hover:text-white transition-all duration-300 flex-shrink-0"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Previous destination"
+              >
+                <ChevronLeft size={24} />
+              </motion.button>
+
+              {/* Dot Indicators */}
+              <div className="flex items-center gap-2 justify-center flex-1">
+                {destinations.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => setMobileDestinationIndex(index)}
+                    className={`rounded-full transition-all duration-300 ${
+                      index === mobileDestinationIndex
+                        ? 'w-3 h-3 bg-gold shadow-[0_0_12px_rgba(201,162,39,0.6)]'
+                        : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label={`Go to destination ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
+              <motion.button
+                onClick={handleMobileDestinationNext}
+                className="p-3 rounded-full bg-white shadow-md hover:shadow-lg hover:bg-gold hover:text-white transition-all duration-300 flex-shrink-0"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Next destination"
+              >
+                <ChevronRight size={24} />
+              </motion.button>
+            </div>
+
+            {/* Destination Counter & Swipe Hint */}
+            <div className="text-center mt-6">
+              <p className="text-gray-600 font-sans text-sm">
+                <span className="font-bold text-gold">{mobileDestinationIndex + 1}</span> of <span className="font-bold">{destinations.length}</span>
+              </p>
+              <p className="text-gray-400 font-sans text-xs mt-2">
+                💡 Swipe or tap arrows to explore
+              </p>
+            </div>
           </div>
         </div>
       </section>
