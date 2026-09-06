@@ -69,7 +69,7 @@ export default function App() {
     <Router>
       <ScrollToTop />
       {/* Loader */}
-      <Loader />
+     {/* <Loader />*/}
       
       {/* Floating Buttons */}
       <FloatingButtons />
